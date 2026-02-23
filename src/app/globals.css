@@ -12,8 +12,6 @@
     hsl(168 45% 94%) 50%,
     hsl(168 20% 98%) 100%
   );
-  /* --Button Colour-- */
-  --primary: hsl(168 76% 32%);
 }
 
 @theme inline {
@@ -22,6 +20,7 @@
   --font-mono: var(--font-mono);
   --background-image-hero: var(--gradient-hero);
   --color-primary: hsl(168 76% 32%);
+  --color-secondary: hsl(40 33% 98%);
 }
 
 body {

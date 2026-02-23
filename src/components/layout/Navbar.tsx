@@ -5,11 +5,11 @@ import { NavItem } from "@/types/nav";
 import Link from "next/link";
 
 const navItems: NavItem[] = [
-  { id: 1, label: "About", href: "/about" },
-  { id: 2, label: "Projects", href: "/projects" },
-  { id: 3, label: "Skills", href: "/skills" },
-  { id: 4, label: "Blog", href: "/blog" },
-  { id: 5, label: "Contact", href: "/contact" },
+  { id: 1, label: "About", href: "about" },
+  { id: 2, label: "Projects", href: "projects" },
+  { id: 3, label: "Skills", href: "skills" },
+  { id: 4, label: "Blog", href: "blog" },
+  { id: 5, label: "Contact", href: "contact" },
 ];
 
 const Navbar = () => {
@@ -24,6 +24,14 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const scrollToSection = (href: string) => {
+    const el = document.getElementById(href);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+    setMenuOpen(false);
+  };
 
   // Close menu on resize to desktop
   useEffect(() => {
@@ -44,7 +52,7 @@ const Navbar = () => {
     >
       <nav className="w-4/5 mx-auto flex justify-between items-center">
         {/* Logo */}
-        <Link href="/">
+        <Link href="/" onClick={() => window.scrollTo(0, 0)}>
           <h1 className="text-2xl font-bold tracking-tight">Portfolio</h1>
         </Link>
 
@@ -54,9 +62,10 @@ const Navbar = () => {
             {navItems.map((nav) => (
               <li
                 key={nav.id}
-                className="text-sm text-gray-500 hover:text-black border-b-2 border-transparent hover:border-green-700 transition-colors duration-300 pb-0.5"
+                className="text-sm text-gray-500 hover:text-black border-b-2 border-transparent hover:border-green-700 transition-colors duration-300 pb-0.5 cursor-pointer"
+                onClick={() => scrollToSection(nav.href)}
               >
-                <Link href={nav.href}>{nav.label}</Link>
+                {nav.label}
               </li>
             ))}
           </ul>
@@ -99,13 +108,12 @@ const Navbar = () => {
         <ul className="flex flex-col items-center gap-5 bg-white/95 backdrop-blur-md py-6 shadow-md">
           {navItems.map((nav) => (
             <li key={nav.id}>
-              <Link
-                href={nav.href}
-                className="text-gray-600 hover:text-black text-sm font-medium transition-colors duration-200"
-                onClick={() => setMenuOpen(false)}
+              <button
+                onClick={() => scrollToSection(nav.href)}
+                className="text-gray-600 hover:text-black text-sm font-medium transition-colors duration-200 cursor-pointer"
               >
                 {nav.label}
-              </Link>
+              </button>
             </li>
           ))}
           <li>
