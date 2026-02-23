@@ -61,7 +61,7 @@ const Navbar = () => {
             ))}
           </ul>
 
-          <button className="bg-green-700 text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-green-800 transition-colors duration-200">
+          <button className="bg-primary text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-primary/90 transition-colors duration-200">
             <Link href="/get-in-touch">Get In Touch</Link>
           </button>
         </div>
