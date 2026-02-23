@@ -95,13 +95,13 @@ const Hero = () => {
       <div className="flex items-center gap-4 mt-6">
         <Link
           href="https://github.com/pirate08/"
-          className="bg-gray-200 rounded-full p-3 hover:bg-primary text-2xl text-gray-700 transition-all duration-300"
+          className="bg-gray-200 rounded-full p-3 hover:bg-primary hover:text-white text-2xl text-gray-700 transition-all duration-300"
         >
           <FaGithub />
         </Link>
         <Link
           href="https://www.linkedin.com/in/mayukh-deb-goswami-343563358/"
-          className="bg-gray-200 rounded-full p-3 hover:bg-primary text-2xl text-gray-700 transition-all duration-300"
+          className="bg-gray-200 rounded-full p-3 hover:bg-primary hover:text-white text-2xl text-gray-700 transition-all duration-300"
         >
           <FaLinkedin />
         </Link>
