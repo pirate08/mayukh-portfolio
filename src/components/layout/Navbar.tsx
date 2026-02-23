@@ -109,7 +109,7 @@ const Navbar = () => {
             </li>
           ))}
           <li>
-            <button className="bg-green-700 text-white px-5 py-2 rounded-lg font-bold text-sm hover:bg-green-800 transition-colors duration-200 mt-1">
+            <button className="bg-primary text-white px-5 py-2 rounded-lg font-bold text-sm hover:bg-primary/90 transition-colors duration-200 mt-1">
               <Link href="/get-in-touch" onClick={() => setMenuOpen(false)}>
                 Get In Touch
               </Link>
