@@ -1,4 +1,5 @@
 import About from "@/components/sections/About";
+import Blog from "@/components/sections/Blog";
 import Hero from "@/components/sections/Hero";
 import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
@@ -15,6 +16,8 @@ export default function Home() {
       <Projects />
       {/* --Skills Section goes here-- */}
       <Skills />
+      {/* --Skills Section goes here-- */}
+      <Blog />
     </div>
   );
 }
