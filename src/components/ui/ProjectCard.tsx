@@ -32,9 +32,11 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           </Link>
 
           {/* Description */}
-          <p className="text-gray-500 text-base leading-relaxed">
-            {project.description}
-          </p>
+          <Link href={project.projectUrl}>
+            <p className="text-gray-500 text-base leading-relaxed">
+              {project.description}
+            </p>
+          </Link>
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mt-1">
