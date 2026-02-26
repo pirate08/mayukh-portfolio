@@ -42,6 +42,13 @@ const Hero = () => {
     return () => clearTimeout(timeout);
   }, [charIndex, phase]);
 
+  const scrollToSection = (href: string) => {
+    const el = document.getElementById(href);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="relative flex min-h-screen flex-col items-center gap-5 justify-start py-24 bg-hero px-4 text-center overflow-hidden">
       {/* --Bottom Left Icon-- */}
@@ -83,12 +90,12 @@ const Hero = () => {
         >
           View My Work
         </Link>
-        <Link
-          href="/contact"
-          className="bg-white text-black px-6 py-2.5 rounded-lg border-[0.5px] border-black font-medium text-sm hover:bg-green-100 transition-all duration-200"
+        <button
+          onClick={() => scrollToSection("contact")}
+          className="bg-white text-black px-6 py-2.5 rounded-lg border-[0.5px] border-black font-medium text-sm hover:bg-green-100 transition-all duration-200 cursor-pointer"
         >
           Contact Me
-        </Link>
+        </button>
       </div>
 
       {/* --Social media links-- */}
