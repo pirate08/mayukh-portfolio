@@ -76,7 +76,7 @@ const Terminal = () => {
         <span className="w-3 h-3 rounded-full bg-red-500" />
         <span className="w-3 h-3 rounded-full bg-yellow-500" />
         <span className="w-3 h-3 rounded-full bg-green-500" />
-        <span className="ml-3 text-gray-400 text-xs">visitor@portfolio ~</span>
+        <span className="ml-3 text-gray-400 text-xs">mayukh@portfolio ~</span>
       </div>
 
       {/* Output area */}
