@@ -33,7 +33,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 
           {/* Description */}
           <Link href={project.projectUrl}>
-            <p className="text-gray-500 text-base leading-relaxed">
+            <p className="text-gray-500 text-base leading-relaxed line-clamp-2">
               {project.description}
             </p>
           </Link>
