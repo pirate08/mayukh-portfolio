@@ -21,3 +21,10 @@ export interface ProjectCard {
   year: Date;
   tags: string[];
 }
+
+export interface ProjectDetails extends ProjectCard {
+  projectHightlights: string[];
+  liveUrl: string;
+  githubUrl: string;
+  screeshots?: string[];
+}
