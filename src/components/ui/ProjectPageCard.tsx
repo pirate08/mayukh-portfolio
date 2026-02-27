@@ -9,7 +9,7 @@ interface ProjectCardProps {
 
 const ProjectPageCard = ({ project }: ProjectCardProps) => {
   return (
-    <article className="bg-white rounded-3xl shadow-md overflow-hidden max-w-md w-full cursor-pointer">
+    <article className="bg-white rounded-3xl shadow-md overflow-hidden max-w-md w-full cursor-pointer hover:scale-105 transition-transform duration-300">
       <Link href={`/projects/${project.slugUrl}`}>
         {/* --- Image Section --- */}
         <div className="relative h-56 bg-linear-to-br from-emerald-100 to-teal-200 flex items-center justify-center">
@@ -40,7 +40,7 @@ const ProjectPageCard = ({ project }: ProjectCardProps) => {
           </div>
 
           {/* Title */}
-          <h3 className="text-xl font-semibold text-slate-900 mb-3">
+          <h3 className="text-xl font-semibold text-slate-900 hover:text-primary mb-3">
             {project.title}
           </h3>
 
