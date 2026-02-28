@@ -6,7 +6,15 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 
-const ProjectsDetailsNavbar = () => {
+interface ProjectsDetailsNavbarProps {
+  liveUrl: string;
+  githubUrl: string;
+}
+
+const ProjectsDetailsNavbar = ({
+  liveUrl,
+  githubUrl,
+}: ProjectsDetailsNavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -41,14 +49,20 @@ const ProjectsDetailsNavbar = () => {
         <div className="flex items-center gap-2">
           <span className="text-base sm:text-lg md:text-xl font-semibold text-slate-900">
             <Link
-              href={""}
+              href={githubUrl}
               className="hover:text-primary transition-colors duration-200"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View source code on GitHub"
             >
               <FaGithub className="inline-block mr-4" />
             </Link>
             <Link
-              href={""}
+              href={liveUrl}
               className="hover:text-primary transition-colors duration-200"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View live demo"
             >
               <FiExternalLink className="inline-block mr-4" />
             </Link>
