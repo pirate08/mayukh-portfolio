@@ -29,7 +29,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
         {/* --Description-- */}
         <div>
           <p className="text-gray-600 leading-relaxed line-clamp-4">
-            {blog.description}
+            {blog.content}
           </p>
         </div>
         {/* --Line in middle-- */}
