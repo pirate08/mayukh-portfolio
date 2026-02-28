@@ -13,7 +13,3 @@ export interface BlogPost {
   authorName?: string;
   authorAvatarUrl?: string;
 }
-
-export interface BlogDetails extends BlogPost {
-  content: string;
-}
