@@ -1,0 +1,76 @@
+"use client";
+
+import Link from "next/link";
+import React, { useState, useEffect } from "react";
+import { FaArrowLeft } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa";
+import { FiExternalLink } from "react-icons/fi";
+
+interface ProjectsDetailsNavbarProps {
+  liveUrl: string;
+  githubUrl: string;
+}
+
+const ProjectsDetailsNavbar = ({
+  liveUrl,
+  githubUrl,
+}: ProjectsDetailsNavbarProps) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-secondary/95 backdrop-blur-md shadow-md"
+          : "bg-secondary border-b border-gray-200"
+      }`}
+    >
+      <div className=" px-4 md:px-20 py-4 flex items-center justify-between">
+        {/* Back Button */}
+        <Link
+          href="/projects"
+          className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors duration-200 text-sm"
+          aria-label="Go back to homepage"
+        >
+          <FaArrowLeft />
+          <span className="hidden sm:inline">All Projects</span>
+        </Link>
+
+        {/* --Link of Live Project and Github-- */}
+        <div className="flex items-center gap-2">
+          <span className="text-base sm:text-lg md:text-xl font-semibold text-slate-900">
+            <Link
+              href={githubUrl}
+              className="hover:text-primary transition-colors duration-200"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View source code on GitHub"
+            >
+              <FaGithub className="inline-block mr-4" />
+            </Link>
+            <Link
+              href={liveUrl}
+              className="hover:text-primary transition-colors duration-200"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View live demo"
+            >
+              <FiExternalLink className="inline-block mr-4" />
+            </Link>
+          </span>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default ProjectsDetailsNavbar;
