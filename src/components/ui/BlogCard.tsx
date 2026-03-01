@@ -53,7 +53,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
           {/* --Read more button goes here-- */}
           <div className="opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
             <Link
-              href={`/blog${blog.slugUrl}`}
+              href={`/blog/${blog.slugUrl}`}
               className="flex text-sm items-center gap-1 text-primary font-medium"
             >
               Read More

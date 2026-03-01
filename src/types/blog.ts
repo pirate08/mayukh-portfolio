@@ -5,6 +5,7 @@ export interface BlogPost {
   content: string;
   description: string;
   tag: string;
+  articleTags: string[];
   date: string;
   isFeatured?: boolean;
   // --Remove it when dynamic data has been added--
@@ -12,5 +13,4 @@ export interface BlogPost {
   slugUrl: string;
   coverImageUrl?: string;
   authorName?: string;
-  authorAvatarUrl?: string;
 }
