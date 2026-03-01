@@ -22,7 +22,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
         </div>
         {/* --Title-- */}
         <div>
-          <Link href={`/blog${blog.slugUrl}`}>
+          <Link href={`/blog/${blog.slugUrl}`}>
             <h2 className="text-xl text-gray-800">{blog.title}</h2>
           </Link>
         </div>

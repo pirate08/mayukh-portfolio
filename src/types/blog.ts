@@ -6,6 +6,7 @@ export interface BlogPost {
   description: string;
   tag: string;
   date: string;
+  isFeatured?: boolean;
   // --Remove it when dynamic data has been added--
   time: string;
   slugUrl: string;

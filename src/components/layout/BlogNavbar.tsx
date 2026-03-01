@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 
-const BlogNavbar = () => {
+const BlogNavbar = ({ articles }: { articles: string }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const BlogNavbar = () => {
         {/* --Count of Total Blogs-- */}
         <div>
           <span className="text-sm text-gray-600">
-            <h6 className="tracking-widest">4 articles</h6>
+            <h6 className="tracking-widest">{articles} articles</h6>
           </span>
         </div>
       </div>

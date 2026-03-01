@@ -13,7 +13,7 @@ const blogPost: BlogPost[] = [
     description: "",
     tag: "Web Development",
     date: "2024-05-12",
-    slugUrl: "/future-of-nextjs",
+    slugUrl: "future-of-nextjs",
     time: "8 min read",
   },
   {
@@ -24,7 +24,7 @@ const blogPost: BlogPost[] = [
     description: "",
     tag: "Software Architecture",
     date: "2024-06-01",
-    slugUrl: "/mastering-clean-code",
+    slugUrl: "mastering-clean-code",
     time: "12 min read",
   },
   {
@@ -35,7 +35,7 @@ const blogPost: BlogPost[] = [
     description: "",
     tag: "Lessons Learned",
     date: "2024-06-15",
-    slugUrl: "/lessons-from-oss",
+    slugUrl: "lessons-from-oss",
     time: "10 min read",
   },
   {
@@ -46,7 +46,7 @@ const blogPost: BlogPost[] = [
     description: "",
     tag: "Web Development",
     date: "2024-07-20",
-    slugUrl: "/real-time-apps",
+    slugUrl: "real-time-apps",
     time: "15 min read",
   },
 ];
