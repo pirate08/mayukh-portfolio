@@ -62,11 +62,14 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
+// --Total Blog number--
+const totalNumber = blogPosts.length.toString();
+
 const BlogPageUI = () => {
   return (
     <main className="min-h-screen bg-secondary py-10">
       {/* Navbar */}
-      <BlogNavbar articles={blogPosts.length.toString()} />
+      <BlogNavbar articles={totalNumber} />
 
       {/* Page Content */}
       <section className="pt-24 md:pt-32 px-4">
