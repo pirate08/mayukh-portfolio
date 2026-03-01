@@ -1,16 +1,6 @@
-import React from "react";
-import type { Metadata } from "next";
-import BlogNavbar from "@/components/layout/BlogNavbar";
-import BlogPage from "@/components/pages/BlogPage";
 import { BlogPost } from "@/types/blog";
 
-export const metadata: Metadata = {
-  title: "Blog | Mayukh Portfolio",
-  description:
-    "Explore blog posts about web development, programming, and technology.",
-};
-
-const blogPosts: BlogPost[] = [
+export const blogPost: BlogPost[] = [
   {
     id: 1,
     title: "The Future of Web Development with Next.js 15",
@@ -23,16 +13,16 @@ const blogPosts: BlogPost[] = [
     slugUrl: "future-of-nextjs",
     time: "8 min read",
     isFeatured: true,
+    coverImageUrl: "/images/E-commerce-logo.png",
     authorName: "Mayukh Deb Goswami",
   },
-
   {
     id: 2,
     title: "Mastering Clean Code in Large Scale Systems",
     content: "Full blog content would go here...",
     description:
       "Software architecture isn't just about making things work; it's about making things last. This article breaks down the principles of SOLID design and how to apply them within a TypeScript ecosystem. We discuss why 'DRY' (Don't Repeat Yourself) can sometimes be a trap and when you should favor composition over inheritance. Learn how to structure your folders to handle hundreds of components without losing your sanity.",
-    tag: "Architecture",
+    tag: "Software Architecture",
     articleTags: [
       "Clean Code",
       "SOLID Principles",
@@ -43,6 +33,7 @@ const blogPosts: BlogPost[] = [
     slugUrl: "mastering-clean-code",
     time: "12 min read",
     isFeatured: false,
+    coverImageUrl: "/images/E-commerce-logo.png",
     authorName: "Mayukh Deb Goswami",
   },
   {
@@ -57,6 +48,7 @@ const blogPosts: BlogPost[] = [
     slugUrl: "lessons-from-oss",
     time: "10 min read",
     isFeatured: false,
+    coverImageUrl: "/images/E-commerce-logo.png",
     authorName: "Mayukh Deb Goswami",
   },
   {
@@ -71,45 +63,21 @@ const blogPosts: BlogPost[] = [
     slugUrl: "real-time-apps",
     time: "15 min read",
     isFeatured: false,
+    coverImageUrl: "/images/E-commerce-logo.png",
     authorName: "Mayukh Deb Goswami",
   },
 ];
 
-// --Total Blog number--
-const totalNumber = blogPosts.length.toString();
-
-const BlogPageUI = () => {
-  return (
-    <main className="min-h-screen bg-secondary py-10">
-      {/* Navbar */}
-      <BlogNavbar articles={totalNumber} />
-
-      {/* Page Content */}
-      <section className="pt-24 md:pt-32 px-4">
-        <div className="max-w-6xl mx-auto">
-          {/* --Header Section goes here-- */}
-          <div>
-            <span className="font-mono text-primary text-base mb-2">
-              / blog
-            </span>
-
-            <h1 className="text-2xl sm:text-3xl md:text-[48px] font-bold text-slate-900 mt-2">
-              Articles & Insights
-            </h1>
-
-            <p className="mt-4 text-gray-500 text-[18px] max-w-2xl ">
-              Writing about web development, software architecture, and lessons
-              learned from building real-world applications.
-            </p>
-          </div>
-          {/* --Blog's card goes here-- */}
-          <div>
-            <BlogPage blogPosts={blogPosts} />
-          </div>
-        </div>
-      </section>
-    </main>
-  );
+// --Helper function to fetch project by slug--
+export const getBlogBySlug = (slug: string): BlogPost | undefined => {
+  return blogPost.find((blog) => blog.slugUrl === slug);
 };
 
-export default BlogPageUI;
+// --Function to handle prev and next blog navigation--
+export const getAdjacentBlogs = (slug: string) => {
+  const index = blogPost.findIndex((blog) => blog.slugUrl === slug);
+  return {
+    prev: index > 0 ? blogPost[index - 1] : null,
+    next: index < blogPost.length - 1 ? blogPost[index + 1] : null,
+  };
+};

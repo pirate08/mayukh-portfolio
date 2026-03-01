@@ -46,6 +46,8 @@ const Contact = () => {
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted", formData);
+    // --Reset form after submission--
+    setFormData(initialFormData);
   };
 
   return (
