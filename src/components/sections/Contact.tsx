@@ -38,7 +38,6 @@ const Contact = () => {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [statusMessage, setStatusMessage] = useState("");
 
-  //   --Function to handle the input change--
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -46,10 +45,10 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  //   --Function to submit the form--
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("loading");
+    setStatusMessage("");
 
     try {
       const res = await fetch("/api/contact", {
@@ -62,8 +61,8 @@ const Contact = () => {
 
       if (res.ok) {
         setStatus("success");
-        setStatusMessage("Message sent! I'll get back to you soon.");
-        setFormData(initialFormData); // ✅ reset form
+        setStatusMessage("Message sent! I'll get back to you soon. 🎉");
+        setFormData(initialFormData);
       } else {
         setStatus("error");
         setStatusMessage(data.error || "Something went wrong.");
@@ -87,7 +86,7 @@ const Contact = () => {
             Get In Touch
           </h6>
           <h2
-            id="skills-heading"
+            id="contact-heading"
             className="text-3xl md:text-[36px] font-bold text-slate-900"
           >
             Let's Work Together
@@ -98,15 +97,15 @@ const Contact = () => {
           </p>
         </div>
 
-        {/* --Contact Information + Form for Contact-- */}
+        {/* Contact Information + Form */}
         <div className="flex flex-col md:flex-row gap-12">
-          {/* --Left Side: Contact Information goes here-- */}
+          {/* Left Side */}
           <div className="md:w-1/2 mt-5">
-            {/* --Title-- */}
-            <h1 className="text-[20px] md:text-2xl font-medium text-gray-800">
+            <h2 className="text-[20px] md:text-2xl font-medium text-gray-800">
               Contact Information
-            </h1>
-            {/* --Contact Details-- */}
+            </h2>
+
+            {/* Contact Details */}
             <div className="mt-5">
               {contactInfo.map((info) => (
                 <div
@@ -114,13 +113,9 @@ const Contact = () => {
                   className="bg-white px-4 py-5 rounded-md shadow-sm mb-4 border border-gray-50"
                 >
                   <div className="flex items-center gap-4">
+                    <info.icon className="text-primary text-5xl bg-primary/10 p-3 rounded-lg shrink-0" />
                     <div>
-                      <info.icon className="text-primary text-5xl bg-primary/10 p-3 rounded-lg " />
-                    </div>
-                    <div>
-                      <h1 className="text-gray-500 text-[14px]">
-                        {info.title}
-                      </h1>
+                      <p className="text-gray-500 text-[14px]">{info.title}</p>
                       <p className="text-[16px] font-semibold">
                         {info.address}
                       </p>
@@ -129,21 +124,27 @@ const Contact = () => {
                 </div>
               ))}
             </div>
-            {/* --Connect with me section goes here-- */}
+
+            {/* Social Links */}
             <div className="mt-8">
-              <h1 className="text-[16px] md:text-2xl font-medium text-gray-800">
+              <h2 className="text-[16px] md:text-2xl font-medium text-gray-800">
                 Connect with me
-              </h1>
-              {/* --Social media links-- */}
+              </h2>
               <div className="flex items-center gap-4 mt-6">
                 <Link
                   href="https://github.com/pirate08/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub Profile"
                   className="bg-white rounded-lg p-3 hover:bg-primary hover:text-white text-3xl text-gray-500 transition-all duration-300"
                 >
                   <FaGithub />
                 </Link>
                 <Link
                   href="https://www.linkedin.com/in/mayukh-deb-goswami-343563358/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn Profile"
                   className="bg-white rounded-lg p-3 hover:bg-primary hover:text-white text-3xl text-gray-500 transition-all duration-300"
                 >
                   <FaLinkedin />
@@ -151,14 +152,13 @@ const Contact = () => {
               </div>
             </div>
           </div>
-          {/* --Contact Form goes here-- */}
+
+          {/* Right Side: Form */}
           <div className="md:w-1/2">
-            {/* --Form goes here--  */}
             <div className="bg-white px-6 py-10 rounded-lg shadow-sm border border-gray-50">
-              <h1 className="text-[20px] font-normal">Send a Message</h1>
-              <form onSubmit={handleSubmit}>
+              <h2 className="text-[20px] font-normal">Send a Message</h2>
+              <form onSubmit={handleSubmit} noValidate>
                 <div className="flex flex-col gap-4 mt-5">
-                  {/* --Name Field-- */}
                   <Input
                     props={{
                       title: "Your Name",
@@ -169,7 +169,6 @@ const Contact = () => {
                     }}
                   />
 
-                  {/* Email Field */}
                   <Input
                     props={{
                       title: "Your Email",
@@ -179,7 +178,7 @@ const Contact = () => {
                       onChange: handleInputChange,
                     }}
                   />
-                  {/* --Message Field-- */}
+
                   <TextArea
                     props={{
                       title: "Your Message",
@@ -189,13 +188,53 @@ const Contact = () => {
                     }}
                   />
 
-                  {/* --Button goes here-- */}
+                  {/* Status Message */}
+                  {status === "success" && (
+                    <p className="text-primary text-sm font-medium text-center bg-primary/5 border border-primary/20 px-4 py-2 rounded-lg">
+                      ✅ {statusMessage}
+                    </p>
+                  )}
+                  {status === "error" && (
+                    <p className="text-red-500 text-sm font-medium text-center bg-red-50 border border-red-200 px-4 py-2 rounded-lg">
+                      ❌ {statusMessage}
+                    </p>
+                  )}
+
+                  {/* Submit Button */}
                   <button
-                    className="bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 cursor-pointer transition-colors duration-300 flex items-center justify-center gap-2"
                     type="submit"
+                    disabled={status === "loading"}
+                    className="bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 cursor-pointer transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Send Message
-                    <BsFillSendFill className="text-lg" />
+                    {status === "loading" ? (
+                      <>
+                        <span>Sending...</span>
+                        <svg
+                          className="animate-spin h-4 w-4"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8v8z"
+                          />
+                        </svg>
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <BsFillSendFill className="text-lg" />
+                      </>
+                    )}
                   </button>
                 </div>
               </form>
