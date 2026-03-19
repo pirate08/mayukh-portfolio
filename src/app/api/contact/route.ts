@@ -39,13 +39,19 @@ export async function POST(req: NextRequest) {
     });
 
     // --Also save to Strapi--
-    await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/messages`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        data: { name, email, message, sentAt: new Date().toISOString() },
-      }),
-    });
+    const strapiRes = await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/messages`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          data: { name, email, message, sentAt: new Date().toISOString() },
+        }),
+      },
+    );
+
+    // --Check strapi response--
+    console.log("Strapi save status:", strapiRes.status);
 
     return NextResponse.json(
       { success: true, message: "Message sent successfully!" },
