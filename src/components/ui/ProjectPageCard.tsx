@@ -1,16 +1,14 @@
 import React from "react";
 import Image from "next/image";
-import { ProjectCard } from "@/types/project";
+import { Project } from "@/types/project";
 import Link from "next/link";
 
-interface ProjectCardProps {
-  project: ProjectCard;
-}
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 
-const ProjectPageCard = ({ project }: ProjectCardProps) => {
+const ProjectPageCard = ({ project }: { project: Project }) => {
   return (
     <article className="bg-white rounded-3xl shadow-md overflow-hidden max-w-md w-full cursor-pointer hover:scale-105 transition-transform duration-300">
-      <Link href={`/projects/${project.slugUrl}`}>
+      <Link href={`/projects/${project.slug}`}>
         {/* --- Image Section --- */}
         <div className="relative h-56 bg-linear-to-br from-emerald-100 to-teal-200 flex items-center justify-center">
           {/* Featured Badge */}
@@ -20,13 +18,17 @@ const ProjectPageCard = ({ project }: ProjectCardProps) => {
             </span>
           )}
 
-          <Image
-            src={project.imageUrl || "/images/placeholder.png"}
-            alt={`Screenshot of ${project.title}`}
-            width={200}
-            height={200}
-            className="object-contain"
-          />
+          {project.image ? (
+            <Image
+              src={`${STRAPI_URL}${project.image.url}`}
+              alt={project.image.alternativeText || project.title}
+              width={200}
+              height={200}
+              className="object-contain"
+            />
+          ) : (
+            <span className="text-gray-300 font-mono text-sm">No image</span>
+          )}
         </div>
 
         {/* --- Content Section --- */}
@@ -36,7 +38,9 @@ const ProjectPageCard = ({ project }: ProjectCardProps) => {
             <span className="text-emerald-600 font-medium">
               {project.section}
             </span>
-            <span className="text-gray-500">{project.year.getFullYear()}</span>
+            <span className="text-gray-500">
+              {new Date(project.year).getFullYear()}
+            </span>
           </div>
 
           {/* Title */}

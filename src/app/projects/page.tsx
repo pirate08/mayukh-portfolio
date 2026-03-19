@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ProjectsPageNavbar from "@/components/layout/ProjectPageNavbar";
 import ProjectsPage from "@/components/pages/ProjectsPage";
+import { getAllProjects } from "@/lib/strapi";
 
 export const metadata: Metadata = {
   title: "Projects | Mayukh Portfolio",
@@ -8,7 +9,8 @@ export const metadata: Metadata = {
     "Explore projects built using Next.js, React, TypeScript and modern web technologies.",
 };
 
-const ProjectsPageUI = () => {
+const ProjectsPageUI = async () => {
+  const projects = await getAllProjects();
   return (
     <main className="min-h-screen bg-secondary py-10">
       {/* Navbar */}
@@ -34,7 +36,7 @@ const ProjectsPageUI = () => {
           </div>
           {/* --Project's card goes here-- */}
           <div>
-            <ProjectsPage />
+            <ProjectsPage projects={projects} />
           </div>
         </div>
       </section>
