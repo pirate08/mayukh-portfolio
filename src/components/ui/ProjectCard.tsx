@@ -6,6 +6,8 @@ import { BsFolderFill } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
 
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+
 interface ProjectCardProps {
   project: Project;
 }
@@ -25,22 +27,22 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           </div>
 
           {/* Title */}
-          <Link href={project.projectUrl}>
-            <h3 className="text-2xl font-bold text-slate-900">
+          <Link href={`/projects/${project.slug}`}>
+            {" "}
+            {/* ✅ slug not projectUrl */}
+            <h3 className="text-2xl font-bold text-slate-900 hover:text-primary transition-colors duration-200">
               {project.title}
             </h3>
           </Link>
 
           {/* Description */}
-          <Link href={project.projectUrl}>
-            <p className="text-gray-500 text-base leading-relaxed line-clamp-2">
-              {project.description}
-            </p>
-          </Link>
+          <p className="text-gray-500 text-base leading-relaxed line-clamp-2">
+            {project.description}
+          </p>
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mt-1">
-            {project.tags.map((tag) => (
+            {project.tags?.map((tag) => (
               <span
                 key={tag}
                 className="border border-gray-200 text-gray-600 text-xs font-medium px-3 py-1 rounded-full"
@@ -53,7 +55,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           {/* Links */}
           <div className="flex items-center gap-5 mt-2">
             <Link
-              href={project.githubUrl}
+              href={project.githubUrl || "#"}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-gray-500 hover:text-primary text-sm font-medium transition-colors duration-200"
@@ -63,7 +65,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
               Code
             </Link>
             <Link
-              href={project.liveUrl}
+              href={project.liveUrl || "#"}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-gray-500 hover:text-primary text-sm font-medium transition-colors duration-200"
@@ -75,13 +77,13 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           </div>
         </div>
 
-        {/* Right: Image or Fallback Icon */}
+        {/* Right: Strapi Image or Fallback */}
         <div className="md:w-80 bg-linear-to-br from-emerald-50 to-teal-100 flex items-center justify-center p-10 min-h-48">
-          {project.imageUrl ? (
+          {project.image ? (
             <div className="relative w-full h-full min-h-48">
               <Image
-                src={project.imageUrl}
-                alt={`Screenshot of ${project.title}`}
+                src={`${STRAPI_URL}${project.image.url}`} // ✅ Strapi image
+                alt={project.image.alternativeText || project.title}
                 fill
                 className="object-cover"
                 sizes="320px"

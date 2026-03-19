@@ -3,47 +3,10 @@ import ProjectCard from "../ui/ProjectCard";
 import Link from "next/link";
 import { Project } from "@/types/project";
 import { FiArrowRight } from "react-icons/fi";
+import { getFeaturedProjects } from "@/lib/strapi";
 
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    imageUrl: "/images/E-commerce-logo.png",
-    projectUrl: "/projects/e-commerce-platform",
-    description:
-      "A full-featured e-commerce solution with real-time inventory, payment processing, and admin dashboard. Built for scale with modern technologies.",
-    tags: ["React", "Node.js", "PostgreSQL", "Stripe"],
-    githubUrl: "https://github.com/pirate08",
-    liveUrl: "#",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Task Management App",
-    imageUrl: "/images/Task-management-logo.png",
-    projectUrl: "/projects/task-management-app",
-    description:
-      "A collaborative project management tool with real-time updates, drag-and-drop boards, and team workspace support. Inspired by modern productivity tools.",
-    tags: ["Next.js", "TypeScript", "Prisma", "Socket.io"],
-    githubUrl: "https://github.com/pirate08",
-    liveUrl: "#",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "Developer Portfolio CMS",
-    imageUrl: "/images/Portfolio-logo.png",
-    projectUrl: "/projects/developer-portfolio-cms",
-    description:
-      "A headless CMS-powered portfolio system built with Strapi and Next.js. Fully dynamic content management with SEO optimization and fast static generation.",
-    tags: ["Next.js", "Strapi", "Tailwind CSS", "TypeScript"],
-    githubUrl: "https://github.com/pirate08",
-    liveUrl: "#",
-    featured: true,
-  },
-];
-
-const Projects = () => {
+const Projects = async () => {
+  const projects = await getFeaturedProjects();
   return (
     <section
       id="projects"
@@ -66,12 +29,21 @@ const Projects = () => {
           </p>
         </div>
 
-        {/* Project Cards */}
-        <div className="flex flex-col gap-6">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+        {/* Project Cards or Empty State */}
+        {projects.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="font-mono text-primary text-lg">
+              No featured projects yet.
+            </p>
+            <p className="text-gray-600 text-sm mt-2">Check back soon!</p>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-6">
+            {projects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        )}
 
         {/* View All Button */}
         <div className="text-center mt-14">
