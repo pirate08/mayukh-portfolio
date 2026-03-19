@@ -46,15 +46,19 @@ const Projects = async () => {
         )}
 
         {/* View All Button */}
-        <div className="text-center mt-14">
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 border border-primary text-primary font-semibold text-sm px-6 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-200"
-          >
-            Other Noteworthy Projects
-            <FiArrowRight className="text-base" />
-          </Link>
-        </div>
+        {projects.length === 0 ? (
+          ""
+        ) : (
+          <div className="text-center mt-14">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 border border-primary text-primary font-semibold text-sm px-6 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-200"
+            >
+              Other Noteworthy Projects
+              <FiArrowRight className="text-base" />
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
