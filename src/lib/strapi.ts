@@ -10,7 +10,7 @@ export async function fetchStrapi(endpoint: string) {
   });
 
   if (!res.ok) {
-    throw new Error(`Strapi fetched for: ${endpoint}`);
+    throw new Error(`Failed to fetch ${endpoint}: ${res.statusText}`);
   }
 
   const json = await res.json();
