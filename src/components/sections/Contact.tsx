@@ -31,6 +31,8 @@ const initialFormData: ContactFormData = {
   message: "",
 };
 
+type FormStatus = "idle" | "loading" | "success" | "error";
+
 const Contact = () => {
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
 
