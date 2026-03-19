@@ -47,11 +47,31 @@ const Contact = () => {
   };
 
   //   --Function to submit the form--
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted", formData);
-    // --Reset form after submission--
-    setFormData(initialFormData);
+    setStatus("loading");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setStatus("success");
+        setStatusMessage("Message sent! I'll get back to you soon.");
+        setFormData(initialFormData); // ✅ reset form
+      } else {
+        setStatus("error");
+        setStatusMessage(data.error || "Something went wrong.");
+      }
+    } catch {
+      setStatus("error");
+      setStatusMessage("Failed to send. Please try again.");
+    }
   };
 
   return (
