@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { BlogPost } from "@/types/blog";
 import { FaCalendarAlt, FaRegClock } from "react-icons/fa";
+import { getRelativeTime } from "@/lib/utils";
 
 interface BlogPageProps {
   blogPosts: BlogPost[];
@@ -20,7 +21,7 @@ const BlogPage = ({ blogPosts }: BlogPageProps) => {
         {/* --- Featured Article --- */}
         {featuredPost.map((post) => (
           <Link
-            href={`/blog/${post.slugUrl}`}
+            href={`/blog/${post.slug}`}
             key={post.id}
             className="block mb-16"
           >
@@ -50,7 +51,7 @@ const BlogPage = ({ blogPosts }: BlogPageProps) => {
                   </span>
                   <span className="flex items-center gap-2">
                     <FaRegClock size={16} />
-                    {post.time}
+                    {getRelativeTime(post.date)}
                   </span>
                 </div>
 
@@ -72,12 +73,12 @@ const BlogPage = ({ blogPosts }: BlogPageProps) => {
               {/* Left Meta */}
               <div className="flex items-center gap-6 text-sm text-gray-500 md:w-48">
                 <span>{post.date}</span>
-                <span>{post.time}</span>
+                <span>{getRelativeTime(post.date)}</span>
               </div>
 
               {/* Content */}
               <div className="flex-1">
-                <Link href={`/blog/${post.slugUrl}`}>
+                <Link href={`/blog/${post.slug}`}>
                   <h3 className="text-lg font-semibold text-slate-900 mb-2 group-hover:text-primary transition-colors duration-300">
                     {post.title}
                   </h3>

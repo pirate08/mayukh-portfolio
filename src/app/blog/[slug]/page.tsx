@@ -39,7 +39,7 @@ const SingleBlog = async ({
 
   return (
     <main className="min-h-screen bg-secondary py-10">
-      <BlogDetailsNavbar time={getRelativeTime(blogData.content)} />
+      <BlogDetailsNavbar time={getRelativeTime(blogData.date)} />
       <section className="px-4 pt-20">
         <div className="max-w-3xl mx-auto">
           <BlogDetails blogs={blogData} prev={prev} next={next} />
