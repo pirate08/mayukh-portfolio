@@ -51,3 +51,18 @@ export async function getFeaturedBlogPost(): Promise<BlogPost | null> {
   );
   return data[0] ?? null;
 }
+
+export async function getAdjacentBlogs(slug: string): Promise<{
+  prev: BlogPost | null;
+  next: BlogPost | null;
+}> {
+  // fetch all blogs sorted by date to find neighbours
+  const allBlogs = await fetchStrapi("blogs?sort=date:asc");
+
+  const index = allBlogs.findIndex((blog: BlogPost) => blog.slug === slug);
+
+  return {
+    prev: index > 0 ? allBlogs[index - 1] : null,
+    next: index < allBlogs.length - 1 ? allBlogs[index + 1] : null,
+  };
+}
