@@ -1,3 +1,4 @@
+import { BlogPost } from "@/types/blog";
 import { Project } from "@/types/project";
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
@@ -30,4 +31,23 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
 
 export async function getFeaturedProjects(): Promise<Project[]> {
   return fetchStrapi("projects?filters[isFeatured][$eq]=true&populate=image");
+}
+
+// --Blogs All Fetch goes here--
+export async function getAllBlogs(): Promise<BlogPost[]> {
+  return fetchStrapi("blogs?populate=coverImage&sort=date:desc");
+}
+
+export async function getBlogBySlug(slug: string): Promise<BlogPost | null> {
+  const data = await fetchStrapi(
+    `blogs?filters[slug][$eq]=${slug}&populate=coverImage`,
+  );
+  return data[0] ?? null;
+}
+
+export async function getFeaturedBlogPost(): Promise<BlogPost | null> {
+  const data = await fetchStrapi(
+    "blogs?filters[isFeatured][$eq]=true&populate=coverImage",
+  );
+  return data[0] ?? null;
 }
