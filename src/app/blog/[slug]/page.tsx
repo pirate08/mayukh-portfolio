@@ -2,18 +2,17 @@ import BlogDetailsNavbar from "@/components/layout/BlogDetailsNavbar";
 import BlogDetails from "@/components/pages/BlogDetails";
 import React from "react";
 import type { Metadata } from "next";
-import { getBlogBySlug, getAdjacentBlogs } from "@/lib/blogData";
+import { getBlogBySlug, getAdjacentBlogs } from "@/lib/strapi"; // ✅ from strapi
 import { notFound } from "next/navigation";
+import { getRelativeTime } from "@/lib/utils";
 
-// --Dynamic Metadata for individual per project--
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-
-  const blog = getBlogBySlug(slug);
+  const blog = await getBlogBySlug(slug); // ✅ await
   return {
     title: blog
       ? `${blog.title} | Mayukh Portfolio`
@@ -29,21 +28,20 @@ const SingleBlog = async ({
   params: Promise<{ slug: string }>;
 }) => {
   const { slug } = await params;
-  const blogData = getBlogBySlug(slug);
 
-  const { prev, next } = getAdjacentBlogs(slug);
+  // ✅ all three run in parallel — faster
+  const [blogData, { prev, next }] = await Promise.all([
+    getBlogBySlug(slug),
+    getAdjacentBlogs(slug),
+  ]);
 
-  // --404 if not found--
   if (!blogData) return notFound();
+
   return (
     <main className="min-h-screen bg-secondary py-10">
-      {/* --Navbar goes here-- */}
-      <BlogDetailsNavbar time={blogData.time} />
-
-      {/* --Single Blog Details Content-- */}
+      <BlogDetailsNavbar time={getRelativeTime(blogData.content)} />
       <section className="px-4 pt-20">
         <div className="max-w-3xl mx-auto">
-          {/* ✅ Pass project data as prop */}
           <BlogDetails blogs={blogData} prev={prev} next={next} />
         </div>
       </section>

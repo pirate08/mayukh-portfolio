@@ -6,6 +6,8 @@ import { LuTag, LuCalendar } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import Image from "next/image";
 
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+
 const BlogDetails = ({
   blogs,
   prev,
@@ -73,10 +75,10 @@ const BlogDetails = ({
       </div>
 
       {/* --Article CoverImage-- */}
-      {blogs.coverImageUrl && (
+      {blogs.coverImage && (
         <div className="w-full h-64 md:h-96 overflow-hidden rounded-lg">
           <Image
-            src={blogs.coverImageUrl}
+            src={`${STRAPI_URL}${blogs.coverImage.url}`}
             alt={blogs.title}
             width={800}
             height={400}
@@ -101,7 +103,7 @@ const BlogDetails = ({
         <div className="flex-1">
           {prev ? (
             <Link
-              href={`/blog/${prev.slugUrl}`}
+              href={`/blog/${prev.slug}`}
               className="group w-full block bg-white border border-gray-200 rounded-2xl px-6 py-5 hover:border-primary hover:shadow-sm transition ease-in-out hover:-translate-y-1 duration-200"
             >
               <p className="text-sm text-gray-400 mb-1 flex items-center gap-1">
@@ -121,7 +123,7 @@ const BlogDetails = ({
         <div className="flex-1">
           {next ? (
             <Link
-              href={`/blog/${next.slugUrl}`}
+              href={`/blog/${next.slug}`}
               className="group w-full block bg-white border border-gray-200 rounded-2xl px-6 py-5 hover:border-primary hover:shadow-sm transition ease-in-out hover:-translate-y-1 duration-200"
             >
               <p className="text-sm text-gray-400 mb-1 flex items-center justify-end gap-1">
