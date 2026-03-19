@@ -35,6 +35,8 @@ type FormStatus = "idle" | "loading" | "success" | "error";
 
 const Contact = () => {
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [statusMessage, setStatusMessage] = useState("");
 
   //   --Function to handle the input change--
   const handleInputChange = (
