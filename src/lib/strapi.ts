@@ -45,11 +45,10 @@ export async function getBlogBySlug(slug: string): Promise<BlogPost | null> {
   return data[0] ?? null;
 }
 
-export async function getFeaturedBlogPost(): Promise<BlogPost | null> {
-  const data = await fetchStrapi(
-    "blogs?filters[isFeatured][$eq]=true&populate=coverImage",
+export async function getLatestBlogs(limit: number = 4): Promise<BlogPost[]> {
+  return fetchStrapi(
+    `blogs?populate=coverImage&sort=date:desc&pagination[limit]=${limit}`,
   );
-  return data[0] ?? null;
 }
 
 export async function getAdjacentBlogs(slug: string): Promise<{
