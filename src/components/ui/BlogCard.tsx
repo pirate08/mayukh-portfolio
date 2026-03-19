@@ -22,7 +22,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
         </div>
         {/* --Title-- */}
         <div>
-          <Link href={`/blog/${blog.slugUrl}`}>
+          <Link href={`/blog/${blog.slug}`}>
             <h2 className="text-xl text-gray-800">{blog.title}</h2>
           </Link>
         </div>
@@ -46,14 +46,16 @@ const BlogCard = ({ blog }: BlogCardProps) => {
             {/* --Time goes here-- */}
             <div className="flex items-center gap-2">
               <IoMdTime className="text-gray-500" />
-              <span className="text-gray-500 text-xs">{blog.time}</span>
+              <span className="text-gray-500 text-xs">
+                {getRelativeTime(blog.date)}
+              </span>
               {/* --{getRelativeTime(blog.date)}-- */}
             </div>
           </div>
           {/* --Read more button goes here-- */}
           <div className="opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
             <Link
-              href={`/blog/${blog.slugUrl}`}
+              href={`/blog/${blog.slug}`}
               className="flex text-sm items-center gap-1 text-primary font-medium"
             >
               Read More
