@@ -1,30 +1,20 @@
+export interface StrapiImage {
+  url: string;
+  alternativeText?: string;
+}
+
 export interface Project {
   id: number;
-  imageUrl?: string;
-  title: string;
-  projectUrl: string;
-  description: string;
-  tags: string[];
-  githubUrl: string;
-  liveUrl: string;
-  featured: boolean;
-}
-
-export interface ProjectCard {
-  id: number;
-  imageUrl?: string;
   title: string;
   description: string;
+  slug: string;
   section: "Full Stack" | "Frontend" | "Backend";
-  isFeatured?: boolean;
-  slugUrl: string;
-  year: Date;
-  tags: string[];
-}
-
-export interface ProjectDetails extends ProjectCard {
-  projectHightlights: string[];
-  liveUrl: string;
+  isFeatured: boolean;
+  year: string;
   githubUrl: string;
-  screeshots?: string[];
+  liveUrl: string;
+  tags: string[];
+  projectHighlights: string[];
+  image?: StrapiImage;
+  screenshots?: StrapiImage[];
 }
