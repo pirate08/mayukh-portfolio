@@ -1,6 +1,6 @@
 import ProjectsDetailsNavbar from "@/components/layout/ProjectDetailsNavbar";
 import ProjectDetails from "@/components/pages/ProjectDetails";
-import { getProjectBySlug } from "@/lib/projectsData";
+import { getProjectBySlug } from "@/lib/strapi";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
@@ -11,7 +11,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
   return {
     title: project
       ? `${project.title} | Mayukh Portfolio`
@@ -26,7 +26,7 @@ const SingleProject = async ({
   params: Promise<{ slug: string }>;
 }) => {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
 
   // ✅ 404 if slug doesn't match any project
   if (!project) return notFound();

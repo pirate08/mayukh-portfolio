@@ -3,12 +3,14 @@ import { BsCheckCircle } from "react-icons/bs";
 import { FaGithub } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 import { LuTag, LuCalendar } from "react-icons/lu";
-import { ProjectDetails as ProjectDetailsType } from "@/types/project";
+import { Project } from "@/types/project";
 import Link from "next/link";
 import Image from "next/image";
 
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+
 interface ProjectDetailsProps {
-  project: ProjectDetailsType;
+  project: Project;
 }
 
 const ProjectDetails = ({ project }: ProjectDetailsProps) => {
@@ -23,7 +25,7 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
           </span>
           <span className="flex items-center gap-1.5 text-xs font-mono text-gray-500 border border-gray-200 px-2.5 py-1 rounded-full">
             <LuCalendar className="text-sm" />
-            {project.year.getFullYear()}
+            {new Date(project.year).getFullYear()}
           </span>
         </div>
 
@@ -35,36 +37,40 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
           {project.description}
         </p>
 
-        {/* ✅ GitHub + Live links filled in */}
         <div className="flex items-center gap-4">
           <Link
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-primary transition-colors duration-200 text-gray-500"
-            aria-label="View source code on GitHub"
+            className="hover:text-primary transition-colors duration-200 text-gray-500 flex items-center gap-1"
           >
-            <FaGithub className="inline-block mr-1" /> Source Code
+            <FaGithub /> Source Code
           </Link>
           <Link
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-primary transition-colors duration-200 text-gray-500"
-            aria-label="View live demo"
+            className="hover:text-primary transition-colors duration-200 text-gray-500 flex items-center gap-1"
           >
-            <FiExternalLink className="inline-block mr-1" /> Live Demo
+            <FiExternalLink /> Live Demo
           </Link>
         </div>
 
-        <div className="w-full h-72 md:h-96 bg-linear-to-br from-emerald-50 to-teal-100 rounded-2xl flex items-center justify-center mt-2">
-          <Image
-            src={project.imageUrl || "/images/default-project.png"}
-            alt="Project Image"
-            width={600}
-            height={400}
-            className="text-gray-300 font-mono text-sm"
-          />
+        {/* ✅ Project image from Strapi */}
+        <div className="w-full h-72 md:h-96 bg-linear-to-br from-emerald-50 to-teal-100 rounded-2xl overflow-hidden flex items-center justify-center mt-2">
+          {project.image ? (
+            <Image
+              src={`${STRAPI_URL}${project.image.url}`}
+              alt={project.image.alternativeText || project.title}
+              width={800}
+              height={400}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <span className="text-gray-300 font-mono text-sm">
+              No image available
+            </span>
+          )}
         </div>
       </div>
 
@@ -75,7 +81,7 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
             Project Highlights
           </h2>
           <ul className="flex flex-col gap-4">
-            {project.projectHightlights.map((point) => (
+            {project.projectHighlights?.map((point) => (
               <li key={point} className="flex items-start gap-3">
                 <BsCheckCircle className="text-primary text-xl mt-0.5 shrink-0" />
                 <span className="text-gray-600 text-base">{point}</span>
@@ -90,7 +96,7 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
               Tech Stack
             </h3>
             <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag) => (
+              {project.tags?.map((tag) => (
                 <span
                   key={tag}
                   className="border border-gray-200 text-gray-600 text-sm px-3 py-1 rounded-full hover:border-primary hover:text-primary transition-colors duration-200"
@@ -106,14 +112,13 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
               Links
             </h3>
             <div className="flex flex-col gap-3">
-              {/* ✅ Both links filled from prop */}
               <Link
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-gray-600 hover:text-primary text-sm font-medium transition-colors duration-200"
               >
-                <FaGithub className="text-lg" /> Source Code
+                <FaGithub /> Source Code
               </Link>
               <Link
                 href={project.liveUrl}
@@ -121,7 +126,7 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-gray-600 hover:text-primary text-sm font-medium transition-colors duration-200"
               >
-                <FiExternalLink className="text-lg" /> Live Demo
+                <FiExternalLink /> Live Demo
               </Link>
             </div>
           </div>
@@ -138,23 +143,23 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
       </div>
 
       {/* ── Screenshots ── */}
-      {project.screeshots && project.screeshots.length > 0 && (
+      {project.screenshots && project.screenshots.length > 0 && (
         <div className="pb-10">
           <h2 className="text-2xl font-bold text-slate-900 mb-6">
             Screenshots
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {project.screeshots.map((shot, i) => (
+            {project.screenshots.map((shot, i) => (
               <div
                 key={i}
-                className="h-56 bg-linear-to-br from-emerald-50 to-teal-100 rounded-2xl flex items-center justify-center"
+                className="h-56 rounded-2xl overflow-hidden bg-linear-to-br from-emerald-50 to-teal-100"
               >
                 <Image
-                  src={shot}
-                  alt={`Screenshot ${i + 1}`}
+                  src={`${STRAPI_URL}${shot.url}`}
+                  alt={shot.alternativeText || `Screenshot ${i + 1}`}
                   width={600}
-                  height={400}
-                  className="text-gray-300 font-mono text-sm"
+                  height={300}
+                  className="w-full h-full object-cover"
                 />
               </div>
             ))}
