@@ -43,9 +43,7 @@ const Blog = async () => {
         )}
 
         {/* --View more button goes here-- */}
-        {blogPosts.length === 0 ? (
-          ""
-        ) : (
+        {blogPosts.length >= 1 && (
           <div className="text-center mt-14">
             <Link
               href="/blog"
