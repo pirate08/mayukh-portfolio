@@ -29,7 +29,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
         {/* --Description-- */}
         <div>
           <p className="text-gray-600 leading-relaxed line-clamp-4">
-            {blog.content}
+            {blog.description}
           </p>
         </div>
         {/* --Line in middle-- */}
@@ -47,7 +47,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
             <div className="flex items-center gap-2">
               <IoMdTime className="text-gray-500" />
               <span className="text-gray-500 text-xs">
-                {getRelativeTime(blog.date)}
+                {getRelativeTime(blog.createdAt)}
               </span>
               {/* --{getRelativeTime(blog.date)}-- */}
             </div>

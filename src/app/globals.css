@@ -42,3 +42,15 @@ h4,
 h5 {
   font-family: var(--font-heading);
 }
+
+@layer base {
+  em,
+  i {
+    font-style: italic;
+  }
+
+  strong,
+  b {
+    font-weight: bold;
+  }
+}
