@@ -16,7 +16,7 @@ export interface StrapiBlock {
   type: string;
   level?: number;
   format?: string;
-  children: StrapiBlockChild[] | { children: StrapiBlockChild[] }[];
+  children: any[]; // ✅ use any[] — Strapi blocks are deeply nested
 }
 
 export interface BlogPost {

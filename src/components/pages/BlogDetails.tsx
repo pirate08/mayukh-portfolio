@@ -88,18 +88,175 @@ const BlogDetails = ({
       )}
 
       {/* ── Article Body ── */}
-      <article className="flex flex-col gap-6">
+      <article className="flex flex-col gap-4">
         {Array.isArray(blogs.content) ? (
-          blogs.content.map((block, i) => (
-            <p
-              key={i}
-              className="text-gray-700 text-base md:text-lg leading-relaxed"
-            >
-              {block.children
-                .map((child: { text: string }) => child.text)
-                .join("")}
-            </p>
-          ))
+          blogs.content.map((block, i) => {
+            // --Heading blocks--
+            if (block.type === "heading") {
+              const text = block.children
+                .map((c: { text: string }) => c.text)
+                .join("");
+              if (block.level === 1)
+                return (
+                  <h1
+                    key={i}
+                    className="text-3xl font-bold text-slate-900 mt-4"
+                  >
+                    {text}
+                  </h1>
+                );
+              if (block.level === 2)
+                return (
+                  <h2
+                    key={i}
+                    className="text-2xl font-bold text-slate-900 mt-4"
+                  >
+                    {text}
+                  </h2>
+                );
+              if (block.level === 3)
+                return (
+                  <h3 key={i} className="text-xl font-bold text-slate-900 mt-3">
+                    {text}
+                  </h3>
+                );
+              if (block.level === 4)
+                return (
+                  <h4 key={i} className="text-lg font-bold text-slate-800 mt-3">
+                    {text}
+                  </h4>
+                );
+            }
+
+            // --Paragraph blocks--
+            if (block.type === "paragraph") {
+              return (
+                <p
+                  key={i}
+                  className="text-gray-700 text-base md:text-lg leading-relaxed"
+                >
+                  {block.children.map(
+                    (
+                      child: {
+                        text: string;
+                        bold?: boolean;
+                        italic?: boolean;
+                        underline?: boolean;
+                        code?: boolean;
+                      },
+                      j: number,
+                    ) => {
+                      if (child.bold && child.italic)
+                        return (
+                          <strong key={j}>
+                            <em>{child.text}</em>
+                          </strong>
+                        );
+                      if (child.bold)
+                        return (
+                          <strong
+                            key={j}
+                            className="font-semibold text-slate-900"
+                          >
+                            {child.text}
+                          </strong>
+                        );
+                      if (child.italic)
+                        return (
+                          <em key={j} className="italic">
+                            {child.text}
+                          </em>
+                        );
+                      if (child.underline) return <u key={j}>{child.text}</u>;
+                      if (child.code)
+                        return (
+                          <code
+                            key={j}
+                            className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono"
+                          >
+                            {child.text}
+                          </code>
+                        );
+                      return <span key={j}>{child.text}</span>;
+                    },
+                  )}
+                </p>
+              );
+            }
+
+            // --List blocks--
+            if (block.type === "list") {
+              const items = block.children.map(
+                (item: { children: { text: string }[] }, j: number) => (
+                  <li
+                    key={j}
+                    className="text-gray-700 text-base md:text-lg leading-relaxed"
+                  >
+                    {item.children
+                      .map((c: { text: string }) => c.text)
+                      .join("")}
+                  </li>
+                ),
+              );
+              return block.format === "ordered" ? (
+                <ol
+                  key={i}
+                  className="list-decimal list-inside flex flex-col gap-1 pl-4"
+                >
+                  {items}
+                </ol>
+              ) : (
+                <ul
+                  key={i}
+                  className="list-disc list-inside flex flex-col gap-1 pl-4"
+                >
+                  {items}
+                </ul>
+              );
+            }
+
+            // --Quote blocks--
+            if (block.type === "quote") {
+              return (
+                <blockquote
+                  key={i}
+                  className="border-l-4 border-primary/40 pl-5 italic text-gray-500"
+                >
+                  {block.children.map((c: { text: string }) => c.text).join("")}
+                </blockquote>
+              );
+            }
+
+            // --Code blocks--
+            if (block.type === "code") {
+              return (
+                <pre
+                  key={i}
+                  className="bg-gray-900 text-green-400 p-4 rounded-xl overflow-x-auto text-sm font-mono"
+                >
+                  <code>
+                    {block.children
+                      .map((c: { text: string }) => c.text)
+                      .join("")}
+                  </code>
+                </pre>
+              );
+            }
+
+            // --Divider / horizontal rule--
+            if (block.type === "thematic-break") {
+              return <hr key={i} className="border-gray-200 my-2" />;
+            }
+
+            // --Fallback for unknown blocks--
+            return (
+              <p key={i} className="text-gray-700 text-base leading-relaxed">
+                {block.children
+                  ?.map((c: { text: string }) => c.text)
+                  .join("") ?? ""}
+              </p>
+            );
+          })
         ) : (
           <p className="text-gray-700 text-base md:text-lg leading-relaxed">
             {blogs.content}
