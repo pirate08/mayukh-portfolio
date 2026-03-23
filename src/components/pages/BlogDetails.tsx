@@ -82,6 +82,7 @@ const BlogDetails = ({
             alt={blogs.title}
             width={800}
             height={400}
+            unoptimized
             className="w-full h-full object-cover bg-black/5 rounded-lg"
           />
         </div>
