@@ -3,9 +3,20 @@ export interface StrapiImage {
   alternativeText?: string;
 }
 
+export interface StrapiBlockChild {
+  type: string;
+  text: string;
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+  code?: boolean;
+}
+
 export interface StrapiBlock {
   type: string;
-  children: { type: string; text: string }[];
+  level?: number;
+  format?: string;
+  children: StrapiBlockChild[] | { children: StrapiBlockChild[] }[];
 }
 
 export interface BlogPost {
