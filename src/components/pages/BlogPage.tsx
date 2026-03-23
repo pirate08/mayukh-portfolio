@@ -73,7 +73,7 @@ const BlogPage = ({ blogPosts }: BlogPageProps) => {
               {/* Left Meta */}
               <div className="flex items-center gap-6 text-sm text-gray-500 md:w-48">
                 <span>{post.date}</span>
-                <span>{getRelativeTime(post.date)}</span>
+                <span>{getRelativeTime(post.createdAt)}</span>
               </div>
 
               {/* Content */}
