@@ -16,6 +16,7 @@ export interface BlogPost {
   tag: string;
   articleTags?: string[];
   date: string;
+  createdAt: string;
   isFeatured?: boolean;
   slug: string;
   coverImage?: StrapiImage;
