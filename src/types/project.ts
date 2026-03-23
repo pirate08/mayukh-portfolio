@@ -10,7 +10,7 @@ export interface Project {
   slug: string;
   section: "Full Stack" | "Frontend" | "Backend";
   isFeatured: boolean;
-  year: string;
+  date: string;
   githubUrl: string;
   liveUrl: string;
   tags: string[];

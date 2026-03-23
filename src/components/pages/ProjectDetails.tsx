@@ -25,7 +25,7 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
           </span>
           <span className="flex items-center gap-1.5 text-xs font-mono text-gray-500 border border-gray-200 px-2.5 py-1 rounded-full">
             <LuCalendar className="text-sm" />
-            {new Date(project.year).getFullYear()}
+            {new Date(project.date).getFullYear()}
           </span>
         </div>
 

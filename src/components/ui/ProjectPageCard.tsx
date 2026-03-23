@@ -39,7 +39,7 @@ const ProjectPageCard = ({ project }: { project: Project }) => {
               {project.section}
             </span>
             <span className="text-gray-500">
-              {new Date(project.year).getFullYear()}
+              {new Date(project.date).getFullYear()}
             </span>
           </div>
 
