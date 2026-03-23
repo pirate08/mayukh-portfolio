@@ -21,4 +21,5 @@ export interface ContactForm {
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
+  error?: string;
 }
