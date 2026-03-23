@@ -33,20 +33,62 @@ const initialFormData: ContactFormData = {
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
+type FormErrors = {
+  name?: string;
+  email?: string;
+  message?: string;
+};
+
 const Contact = () => {
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [statusMessage, setStatusMessage] = useState("");
+  const [errors, setErrors] = useState<FormErrors>({});
 
+  // ✅ Validation function
+  const validate = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required.";
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = "Name must be at least 2 characters.";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required.";
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // --Handle Input change function--
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // ✅ Clear error for the field being typed in
+    if (errors[name as keyof FormErrors]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
   };
 
+  // --Handle Submit function--
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!validate()) return;
     setStatus("loading");
     setStatusMessage("");
 
@@ -63,6 +105,7 @@ const Contact = () => {
         setStatus("success");
         setStatusMessage("Message sent! I'll get back to you soon. 🎉");
         setFormData(initialFormData);
+        setErrors({});
       } else {
         setStatus("error");
         setStatusMessage(data.error || "Something went wrong.");
@@ -166,6 +209,7 @@ const Contact = () => {
                       name: "name",
                       value: formData.name,
                       onChange: handleInputChange,
+                      error: errors.name,
                     }}
                   />
 
@@ -176,6 +220,7 @@ const Contact = () => {
                       name: "email",
                       value: formData.email,
                       onChange: handleInputChange,
+                      error: errors.email,
                     }}
                   />
 
@@ -185,6 +230,7 @@ const Contact = () => {
                       name: "message",
                       value: formData.message,
                       onChange: handleInputChange,
+                      error: errors.message,
                     }}
                   />
 
