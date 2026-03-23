@@ -24,7 +24,7 @@ export async function getAllProjects(): Promise<Project[]> {
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   const data = await fetchStrapi(
-    `projects?filters[slug][$eq]=${slug}&populate=image,screenshots`,
+    `projects?filters[slug][$eq]=${slug}&populate=image&populate[1]=screenshots`,
   );
   return data[0] ?? null;
 }
