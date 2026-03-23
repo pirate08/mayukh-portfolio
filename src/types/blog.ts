@@ -3,10 +3,15 @@ export interface StrapiImage {
   alternativeText?: string;
 }
 
+export interface StrapiBlock {
+  type: string;
+  children: { type: string; text: string }[];
+}
+
 export interface BlogPost {
   id: number;
   title: string;
-  content: string;
+  content: StrapiBlock[];
   description: string;
   tag: string;
   articleTags?: string[];
