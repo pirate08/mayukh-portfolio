@@ -51,7 +51,7 @@ const BlogPage = ({ blogPosts }: BlogPageProps) => {
                   </span>
                   <span className="flex items-center gap-2">
                     <FaRegClock size={16} />
-                    {getRelativeTime(post.date)}
+                    {getRelativeTime(post.createdAt)}
                   </span>
                 </div>
 
