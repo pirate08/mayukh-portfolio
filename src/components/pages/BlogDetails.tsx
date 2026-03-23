@@ -89,9 +89,22 @@ const BlogDetails = ({
 
       {/* ── Article Body ── */}
       <article className="flex flex-col gap-6">
-        <p className="text-gray-700 text-base md:text-lg leading-relaxed whitespace-pre-wrap">
-          {blogs.content}
-        </p>
+        {Array.isArray(blogs.content) ? (
+          blogs.content.map((block, i) => (
+            <p
+              key={i}
+              className="text-gray-700 text-base md:text-lg leading-relaxed"
+            >
+              {block.children
+                .map((child: { text: string }) => child.text)
+                .join("")}
+            </p>
+          ))
+        ) : (
+          <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+            {blogs.content}
+          </p>
+        )}
       </article>
 
       {/* ── Divider ── */}
