@@ -51,8 +51,8 @@ const Contact = () => {
 
     if (!formData.name.trim()) {
       newErrors.name = "Name is required.";
-    } else if (formData.name.trim().length < 2) {
-      newErrors.name = "Name must be at least 2 characters.";
+    } else if (formData.name.trim().length < 5) {
+      newErrors.name = "Name must be at least 5 characters.";
     }
 
     if (!formData.email.trim()) {
