@@ -118,40 +118,6 @@ const Skills = () => {
             </div>
           ))}
         </div>
-
-        {/* --My Process-- */}
-        <div className="mt-24 rounded-3xl bg-[#030617] p-8 md:p-16 border border-white/5">
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-16 text-center">
-            My <span className="text-primary">Process</span>
-          </h3>
-
-          <div className="flex flex-col md:flex-row justify-between items-start gap-12 md:gap-4 relative">
-            {processSteps.map((step, index) => (
-              <div
-                key={step.id}
-                className="flex-1 flex flex-col items-center text-center relative group w-full"
-              >
-                {/* Connecting Line (Desktop Only) */}
-                {index !== processSteps.length - 1 && (
-                  <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-linear-to-r from-primary/50 to-transparent z-0" />
-                )}
-
-                {/* Number Circle */}
-                <div className="relative z-10 w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xl mb-6 shadow-[0_0_20px_rgba(20,184,166,0.3)] transition-transform duration-300 group-hover:scale-110">
-                  {step.id}
-                </div>
-
-                {/* Text Content */}
-                <h4 className="text-white font-bold text-lg mb-2">
-                  {step.title}
-                </h4>
-                <p className="text-gray-400 text-sm md:text-base max-w-50">
-                  {step.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );
