@@ -2,8 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Project } from "@/types/project";
 import Link from "next/link";
-
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+import { getImageUrl } from "@/lib/getImageUrl";
 
 const ProjectPageCard = ({ project }: { project: Project }) => {
   return (
@@ -20,7 +19,7 @@ const ProjectPageCard = ({ project }: { project: Project }) => {
 
           {project.image ? (
             <Image
-              src={`${STRAPI_URL}${project.image.url}`}
+              src={getImageUrl(project.image.url)}
               alt={project.image.alternativeText || project.title}
               width={200}
               height={200}
