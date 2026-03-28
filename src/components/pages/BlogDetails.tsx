@@ -5,8 +5,9 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { LuTag, LuCalendar } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import Image from "next/image";
+import { getImageUrl } from "@/lib/getImageUrl";
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+// const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 
 const BlogDetails = ({
   blogs,
@@ -78,7 +79,7 @@ const BlogDetails = ({
       {blogs.coverImage && (
         <div className="w-full h-64 md:h-96 overflow-hidden rounded-lg">
           <Image
-            src={`${STRAPI_URL}${blogs.coverImage.url}`}
+            src={getImageUrl(blogs.coverImage.url)}
             alt={blogs.title}
             width={800}
             height={400}
