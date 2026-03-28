@@ -6,8 +6,7 @@ import { LuTag, LuCalendar } from "react-icons/lu";
 import { Project } from "@/types/project";
 import Link from "next/link";
 import Image from "next/image";
-
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+import { getImageUrl } from "@/lib/getImageUrl";
 
 interface ProjectDetailsProps {
   project: Project;
@@ -60,7 +59,7 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
         <div className="w-full h-72 md:h-96 bg-linear-to-br from-emerald-50 to-teal-100 rounded-2xl overflow-hidden flex items-center justify-center mt-2">
           {project.image ? (
             <Image
-              src={`${STRAPI_URL}${project.image.url}`}
+              src={getImageUrl(project.image.url)}
               alt={project.image.alternativeText || project.title}
               width={800}
               height={400}
@@ -155,7 +154,7 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
                 className="h-56 rounded-2xl overflow-hidden bg-linear-to-br from-emerald-50 to-teal-100"
               >
                 <Image
-                  src={`${STRAPI_URL}${shot.url}`}
+                  src={getImageUrl(shot.url)}
                   alt={shot.alternativeText || `Screenshot ${i + 1}`}
                   width={600}
                   height={300}
