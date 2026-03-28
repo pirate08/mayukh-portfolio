@@ -6,9 +6,6 @@ import { BsFolderFill } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
 import { getImageUrl } from "@/lib/getImageUrl";
-
-// const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
-
 interface ProjectCardProps {
   project: Project;
 }
