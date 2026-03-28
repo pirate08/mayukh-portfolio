@@ -5,8 +5,9 @@ import { FiExternalLink } from "react-icons/fi";
 import { BsFolderFill } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
+import { getImageUrl } from "@/lib/getImageUrl";
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+// const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
 
 interface ProjectCardProps {
   project: Project;
@@ -82,7 +83,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           {project.image ? (
             <div className="relative w-full h-full min-h-48">
               <Image
-                src={`${STRAPI_URL}${project.image.url}`} // ✅ Strapi image
+                src={getImageUrl(project.image.url)}
                 alt={project.image.alternativeText || project.title}
                 fill
                 className="object-cover"
